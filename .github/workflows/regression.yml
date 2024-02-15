@@ -92,29 +92,29 @@ jobs:
         path: cypress/tests_reports/${{ matrix.browser }}_mocha_report
         retention-days: 15
 
-  Ari-Slack-Notification:
-    needs: [RegressionTesting]
-    if: always()
-    runs-on: ubuntu-latest
-    steps:
-    - name: 🔔Check if SLACK_WEBHOOK is Defined
-      run: |
-        if [[ -z "${{ secrets.SLACK_WEBHOOK }}" ]]; then
-          echo "SLACK_WEBHOOK is not set. Please set it in the repository secrets to enable Slack notifications."
-        fi
+  # Ari-Slack-Notification:
+  #   needs: [RegressionTesting]
+  #   if: always()
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: 🔔Check if SLACK_WEBHOOK is Defined
+  #     run: |
+  #       if [[ -z "${{ secrets.SLACK_WEBHOOK }}" ]]; then
+  #         echo "SLACK_WEBHOOK is not set. Please set it in the repository secrets to enable Slack notifications."
+  #       fi
 
-    - name: 🔔Slack Notification of Done
-      if: env.SLACK_WEBHOOK != ''
-      uses: rtCamp/action-slack-notify@v2
-      env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-        SLACK_USERNAME: Ari✨
-        SLACK_MESSAGE: ':test_tube: CYPRESS: REGRESSION RESULTS IMPORTED TO JIRA :rocket:'
-        SLACK_COLOR: ${{ job.status }}
-        SLACK_ICON: https://image.cdn2.seaart.ai/2023-12-06/clo9g0h4msbc73ac2sog/99e1abc36f32945cd4bacf5ee7448e96194545f7_high.webp
+  #   - name: 🔔Slack Notification of Done
+  #     if: env.SLACK_WEBHOOK != ''
+  #     uses: rtCamp/action-slack-notify@v2
+  #     env:
+  #       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+  #       SLACK_USERNAME: Ari✨
+  #       SLACK_MESSAGE: ':test_tube: CYPRESS: REGRESSION RESULTS IMPORTED TO JIRA :rocket:'
+  #       SLACK_COLOR: ${{ job.status }}
+  #       SLACK_ICON: https://image.cdn2.seaart.ai/2023-12-06/clo9g0h4msbc73ac2sog/99e1abc36f32945cd4bacf5ee7448e96194545f7_high.webp
 
   Create-PullRequest:
-    needs: [RegressionTesting, Ari-Slack-Notification]
+    needs: [RegressionTesting]
     runs-on: ubuntu-latest
     steps:
 
