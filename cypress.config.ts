@@ -30,8 +30,8 @@ export default defineConfig({
 	e2e: {
 		baseUrl: 'https://demoqa.com',
 		// Glob pattern to determine what test files to load:
-		specPattern: [ 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}' ],
-		excludeSpecPattern: [ 'cypress/e2e/**/*.example.cy.js' ],
+		specPattern: ['cypress/e2e/**/*.cy.{js,jsx,ts,tsx}'],
+		excludeSpecPattern: ['cypress/e2e/**/*.example.cy.js'],
 		experimentalRunAllSpecs: true,
 		// Use Cypress plugins:
 		setupNodeEvents(on, config) {
@@ -41,7 +41,5 @@ export default defineConfig({
 			return config;
 		},
 	},
-	env: {
-
-	},
+	env: {},
 });
